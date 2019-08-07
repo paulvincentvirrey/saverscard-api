@@ -7,16 +7,16 @@ const app = express();
 if (process.env.ENV === "Test") {
   const db = mongoose.connect("mongodb://localhost/vendorAPI_test");
 } else {
-  const db = mongoose.connect("mongodb://localhost/vendorAPI", {
-    useFindAndModify: false
-  });
-  // const db = mongoose.connect(
-  //   "mongodb://saverscard:O0wlqEGsz9hINTQhnOfsYHyZ98f4IMPRRVIyU8X4poFquBSRfMFjCdPwxCkU1YOKh3BGdFNUAwsaJzQJRYUc5g==@saverscard.documents.azure.com:10250/mean?ssl=true&sslverifycertificate=false",
-  //   {
-  //     useNewUrlParser: true,
-  //     useFindAndModify: false
-  //   }
-  // );
+  // const db = mongoose.connect("mongodb://localhost/vendorAPI", {
+  //   useFindAndModify: false
+  // });
+  const db = mongoose.connect(
+    "mongodb://saverscard:O0wlqEGsz9hINTQhnOfsYHyZ98f4IMPRRVIyU8X4poFquBSRfMFjCdPwxCkU1YOKh3BGdFNUAwsaJzQJRYUc5g==@saverscard.documents.azure.com:10250/mean?ssl=true&sslverifycertificate=false",
+    {
+      useNewUrlParser: true,
+      useFindAndModify: false
+    }
+  );
 }
 
 const port = process.env.PORT || 3001;
