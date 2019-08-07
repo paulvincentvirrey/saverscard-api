@@ -10,17 +10,20 @@ const vendorModel = new Schema({
   },
   vendorInformation: {
     businessName: String,
-    address: String,
+    website: String,
+    address1: String,
+    address2: String,
     city: String,
     state: String,
     zip: Number,
     telephone: String,
     fax: String,
     authorizedPerson: String,
-    contactEmail: String
+    authorizedPersonPhone: String,
+    authorizedPersonEmail: String
   },
-  storeProfile: {
-    storeType: String,
+  vendorProfile: {
+    vendorCategory: String,
     discountInPercent: Number,
     discountToAll: Boolean,
     discountExclusions: String

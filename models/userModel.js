@@ -13,7 +13,8 @@ const userModel = new Schema({
     lastName: String,
     birthday: Date,
     contactNumber: String,
-    address: String,
+    address1: String,
+    address2: String,
     city: String,
     state: String,
     zip: Number
@@ -23,7 +24,8 @@ const userModel = new Schema({
     ccType: String,
     subscription: Number,
     promoCode: String
-  }
+  },
+  isAdmin: Boolean
 });
 
 module.exports = mongoose.model("User", userModel);

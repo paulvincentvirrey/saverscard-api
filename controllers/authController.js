@@ -14,7 +14,7 @@ function authController(User) {
             message: "User not found"
           });
         }
-        res.status(200).send({ message: "User successfully logged in!" });
+        res.status(200).send(user);
       })
       .catch(err => {
         if (err) {

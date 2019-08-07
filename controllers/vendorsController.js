@@ -18,7 +18,20 @@ function vendorsController(Vendor) {
   function getAll(req, res) {
     Vendor.find()
       .then(vendors => {
-        res.send(vendors);
+        let vendorsInfo = [];
+
+        vendors.forEach(function(vendorItem) {
+          const info = {
+            _id: vendorItem._id,
+            vendor: {
+              ...vendorItem.vendorInformation,
+              ...vendorItem.vendorProfile
+            }
+          };
+
+          vendorsInfo.push(info);
+        });
+        res.send(vendorsInfo);
       })
       .catch(err => {
         res.status(500).send({
