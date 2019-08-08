@@ -28,6 +28,7 @@ function usersController(User) {
             dateModified: userItem.dateModified,
             dateCreated: userItem.dateCreated,
             status: userItem.status,
+            isAdmin: userItem.isAdmin,
             ...userItem.userProfile
           };
           usersInfo.push(info);
@@ -57,6 +58,7 @@ function usersController(User) {
           dateModified: user.dateModified,
           dateCreated: user.dateCreated,
           status: user.status,
+          isAdmin: user.isAdmin,
           ...user.userProfile
         };
 
@@ -96,6 +98,7 @@ function usersController(User) {
           dateModified: user.dateModified,
           dateCreated: user.dateCreated,
           status: user.status,
+          isAdmin: user.isAdmin,
           ...user.userProfile
         };
 
