@@ -29,7 +29,7 @@ function vendorsController(Vendor) {
 
           vendorsInfo.push(info);
         });
-        res.send(vendorsInfo);
+        res.send(vendors);
       })
       .catch(err => {
         res.status(500).send({
@@ -53,7 +53,7 @@ function vendorsController(Vendor) {
           ...vendor.vendorInformation,
           ...vendor.vendorProfile
         };
-        res.send(vendorInfo);
+        res.send(vendor);
       })
       .catch(err => {
         if (err.kind === "ObjectId") {
