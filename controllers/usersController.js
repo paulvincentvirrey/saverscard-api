@@ -89,7 +89,17 @@ function usersController(User) {
             message: "User not found with id " + req.params.userId
           });
         }
-        res.send(user);
+        const userInfo = {
+          _id: user._id,
+          username: user.accountDetails.username,
+          email: user.accountDetails.email,
+          dateModified: user.dateModified,
+          dateCreated: user.dateCreated,
+          status: user.status,
+          ...user.userProfile
+        };
+
+        res.send(userInfo);
       })
       .catch(err => {
         if (err.kind === "ObjectId") {

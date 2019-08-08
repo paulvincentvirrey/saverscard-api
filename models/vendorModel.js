@@ -20,7 +20,8 @@ const vendorModel = new Schema({
     fax: String,
     authorizedPerson: String,
     authorizedPersonPhone: String,
-    authorizedPersonEmail: String
+    authorizedPersonEmail: String,
+    logoPath: String
   },
   vendorProfile: {
     vendorCategory: String,

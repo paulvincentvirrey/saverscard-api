@@ -48,7 +48,12 @@ function vendorsController(Vendor) {
             message: "Vendor not found."
           });
         }
-        res.send(vendor);
+        const vendorInfo = {
+          _id: vendor._id,
+          ...vendor.vendorInformation,
+          ...vendor.vendorProfile
+        };
+        res.send(vendorInfo);
       })
       .catch(err => {
         if (err.kind === "ObjectId") {
@@ -77,7 +82,12 @@ function vendorsController(Vendor) {
             message: "Vendor not found with id " + req.params.vendorId
           });
         }
-        res.send(vendor);
+        const vendorInfo = {
+          _id: vendor._id,
+          ...vendor.vendorInformation,
+          ...vendor.vendorProfile
+        };
+        res.send(vendorInfo);
       })
       .catch(err => {
         if (err.kind === "ObjectId") {
