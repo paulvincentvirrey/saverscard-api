@@ -25,6 +25,9 @@ const userModel = new Schema({
     subscription: Number,
     promoCode: String
   },
+  status: String,
+  dateCreated: Date,
+  dateModified: Date,
   isAdmin: Boolean
 });
 

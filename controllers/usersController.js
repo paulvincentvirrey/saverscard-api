@@ -17,7 +17,22 @@ function usersController(User) {
   function getAll(req, res) {
     User.find()
       .then(users => {
-        res.send(users);
+        let usersInfo = [];
+
+        users.forEach(function(userItem) {
+          console.log();
+          const info = {
+            _id: userItem._id,
+            username: userItem.username,
+            email: userItem.email,
+            dateModified: userItem.dateModified,
+            dateCreated: userItem.dateCreated,
+            status: userItem.status,
+            ...userItem.userProfile
+          };
+          usersInfo.push(info);
+        });
+        res.send(usersInfo);
       })
       .catch(err => {
         res.status(500).send({
