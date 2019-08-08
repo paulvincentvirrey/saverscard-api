@@ -23,8 +23,8 @@ function usersController(User) {
           console.log();
           const info = {
             _id: userItem._id,
-            username: userItem.username,
-            email: userItem.email,
+            username: userItem.accountDetails.username,
+            email: userItem.accountDetails.email,
             dateModified: userItem.dateModified,
             dateCreated: userItem.dateCreated,
             status: userItem.status,
@@ -52,8 +52,8 @@ function usersController(User) {
         }
         const userInfo = {
           _id: user._id,
-          username: user.username,
-          email: user.email,
+          username: user.accountDetails.username,
+          email: user.accountDetails.email,
           dateModified: user.dateModified,
           dateCreated: user.dateCreated,
           status: user.status,

@@ -16,8 +16,8 @@ function authController(User) {
         }
         const userInfo = {
           _id: user._id,
-          username: user.username,
-          email: user.email,
+          username: user.accountDetails.username,
+          email: user.accountDetails.email,
           dateModified: user.dateModified,
           dateCreated: user.dateCreated,
           status: user.status,
