@@ -50,7 +50,17 @@ function usersController(User) {
             message: "User not found."
           });
         }
-        res.send(user);
+        const userInfo = {
+          _id: user._id,
+          username: user.username,
+          email: user.email,
+          dateModified: user.dateModified,
+          dateCreated: user.dateCreated,
+          status: user.status,
+          ...user.userProfile
+        };
+
+        res.send(userInfo);
       })
       .catch(err => {
         if (err.kind === "ObjectId") {
