@@ -21,6 +21,7 @@ function authController(User) {
           dateModified: user.dateModified,
           dateCreated: user.dateCreated,
           status: user.status,
+          isAdmin: user.isAdmin,
           ...user.userProfile
         };
 
