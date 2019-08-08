@@ -23,10 +23,8 @@ function vendorsController(Vendor) {
         vendors.forEach(function(vendorItem) {
           const info = {
             _id: vendorItem._id,
-            vendor: {
-              ...vendorItem.vendorInformation,
-              ...vendorItem.vendorProfile
-            }
+            ...vendorItem.vendorInformation,
+            ...vendorItem.vendorProfile
           };
 
           vendorsInfo.push(info);
