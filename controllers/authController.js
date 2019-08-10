@@ -5,8 +5,8 @@ function authController(User) {
     const { email, password } = req.body;
 
     User.findOne({
-      "accountDetails.email": email,
-      "accountDetails.password": password
+      email: email,
+      password: password
     })
       .then(user => {
         if (!user) {
@@ -22,14 +22,7 @@ function authController(User) {
         const token = jwt.sign(payload, secret, options);
 
         const userInfo = {
-          _id: user._id,
-          username: user.accountDetails.username,
-          email: user.accountDetails.email,
-          dateModified: user.dateModified,
-          dateCreated: user.dateCreated,
-          status: user.status,
-          isAdmin: user.isAdmin,
-          ...user.userProfile,
+          user,
           access_token: token
         };
 
