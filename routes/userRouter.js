@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const userController = require("../controllers/usersController");
+const validateToken = require("../utils/utils").validateToken;
 
 function routes(User) {
   const userRouter = Router();
@@ -8,7 +9,7 @@ function routes(User) {
   userRouter
     .route("/")
     .post(controller.insert)
-    .get(controller.getAll);
+    .get(validateToken, controller.getAll);
 
   userRouter
     .route("/:userId")

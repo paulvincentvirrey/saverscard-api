@@ -1,9 +1,9 @@
+const jwt = require("jsonwebtoken");
+
 function authController(User) {
   function login(req, res) {
     const { email, password } = req.body;
 
-    console.log("email: " + email);
-    console.log("password: " + password);
     User.findOne({
       "accountDetails.email": email,
       "accountDetails.password": password
@@ -14,6 +14,13 @@ function authController(User) {
             message: "User not found"
           });
         }
+
+        // Create a token
+        const payload = { user: user.username };
+        const options = { expiresIn: "24h", issuer: "admin" };
+        const secret = "aoisjda98u12i31hajskdk";
+        const token = jwt.sign(payload, secret, options);
+
         const userInfo = {
           _id: user._id,
           username: user.accountDetails.username,
@@ -22,7 +29,8 @@ function authController(User) {
           dateCreated: user.dateCreated,
           status: user.status,
           isAdmin: user.isAdmin,
-          ...user.userProfile
+          ...user.userProfile,
+          access_token: token
         };
 
         res.send(userInfo);
