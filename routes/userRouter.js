@@ -18,6 +18,8 @@ function routes(User) {
     .patch(controller.update)
     .delete(controller.remove);
 
+  userRouter.route("/updatepassword/:userId").patch(controller.updatePassword);
+
   return userRouter;
 }
 

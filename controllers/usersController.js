@@ -49,6 +49,7 @@ function usersController(User) {
         });
       });
   }
+
   function update(req, res) {
     //Validate request here
     // if (!req.body.content) {
@@ -70,6 +71,36 @@ function usersController(User) {
         }
 
         res.send(user);
+      })
+      .catch(err => {
+        if (err.kind === "ObjectId") {
+          return res.status(400).send({
+            message: "User not found with id " + req.params.userId
+          });
+        }
+
+        return res.status(500).send({
+          message:
+            err.message || "Could not update user with id " + req.params.userId
+        });
+      });
+  }
+
+  function updatePassword(req, res) {
+    const { userId } = req.params;
+    const { currentPassword, newPassword } = req.body;
+    User.updateOne(
+      { _id: userId, password: currentPassword },
+      { password: newPassword }
+    )
+      .then(x => {
+        if (x.n === 0) {
+          res.status(404).send({
+            message: "Incorrect password for User with id " + req.params.userId
+          });
+        }
+
+        res.send({ message: "Password updated successfully!" });
       })
       .catch(err => {
         if (err.kind === "ObjectId") {
@@ -140,7 +171,7 @@ function usersController(User) {
       });
   }
 
-  return { insert, getAll, get, replace, update, remove };
+  return { insert, getAll, get, replace, update, updatePassword, remove };
 }
 
 module.exports = usersController;
