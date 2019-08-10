@@ -9,7 +9,7 @@ function routes(Vendor) {
   vendorRouter
     .route("/")
     .post(controller.insert)
-    .get(validateToken, controller.getAll);
+    .get(controller.getAll);
 
   vendorRouter
     .route("/:vendorId")

@@ -9,7 +9,7 @@ function routes(User) {
   userRouter
     .route("/")
     .post(controller.insert)
-    .get(validateToken, controller.getAll);
+    .get(controller.getAll);
 
   userRouter
     .route("/:userId")
