@@ -18,18 +18,7 @@ function vendorsController(Vendor) {
   function getAll(req, res) {
     Vendor.find()
       .then(vendors => {
-        let vendorsInfo = [];
-
-        vendors.forEach(function(vendorItem) {
-          const info = {
-            _id: vendorItem._id,
-            ...vendorItem.vendorInformation,
-            ...vendorItem.vendorProfile
-          };
-
-          vendorsInfo.push(info);
-        });
-        res.send(vendorsInfo);
+        res.send(vendors);
       })
       .catch(err => {
         res.status(500).send({
@@ -48,12 +37,8 @@ function vendorsController(Vendor) {
             message: "Vendor not found."
           });
         }
-        const vendorInfo = {
-          _id: vendor._id,
-          ...vendor.vendorInformation,
-          ...vendor.vendorProfile
-        };
-        res.send(vendorInfo);
+
+        res.send(vendor);
       })
       .catch(err => {
         if (err.kind === "ObjectId") {
@@ -75,6 +60,43 @@ function vendorsController(Vendor) {
     //   });
     // }
 
+    Vendor.findByIdAndUpdate(
+      { _id: req.params.vendorId },
+      { $set: req.body },
+      { new: true }
+    )
+      .then(vendor => {
+        if (!vendor) {
+          res.status(404).send({
+            message: "Vendor not found with id " + req.params.vendorId
+          });
+        }
+
+        res.send(vendor);
+      })
+      .catch(err => {
+        if (err.kind === "ObjectId") {
+          return res.status(400).send({
+            message: "Vendor not found with id " + req.params.vendorId
+          });
+        }
+
+        return res.status(500).send({
+          message:
+            err.message ||
+            "Could not update vendor with id " + req.params.vendorId
+        });
+      });
+  }
+
+  function replace(req, res) {
+    //Validate request here
+    // if (!req.body.content) {
+    //   return res.status(400).send({
+    //     message: "User content cannot be empty"
+    //   });
+    // }
+
     Vendor.findByIdAndUpdate(req.params.vendorId, req.body, { new: true })
       .then(vendor => {
         if (!vendor) {
@@ -82,12 +104,8 @@ function vendorsController(Vendor) {
             message: "Vendor not found with id " + req.params.vendorId
           });
         }
-        const vendorInfo = {
-          _id: vendor._id,
-          ...vendor.vendorInformation,
-          ...vendor.vendorProfile
-        };
-        res.send(vendorInfo);
+
+        res.send(vendor);
       })
       .catch(err => {
         if (err.kind === "ObjectId") {
@@ -127,7 +145,7 @@ function vendorsController(Vendor) {
       });
   }
 
-  return { insert, getAll, get, update, remove };
+  return { insert, getAll, get, replace, update, remove };
 }
 
 module.exports = vendorsController;

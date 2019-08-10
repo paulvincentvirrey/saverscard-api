@@ -9,12 +9,13 @@ function routes(User) {
   userRouter
     .route("/")
     .post(controller.insert)
-    .get(controller.getAll);
+    .get(validateToken, controller.getAll);
 
   userRouter
     .route("/:userId")
     .get(controller.get)
-    .put(controller.update)
+    .put(controller.replace)
+    .patch(controller.update)
     .delete(controller.remove);
 
   return userRouter;

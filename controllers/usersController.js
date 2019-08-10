@@ -17,23 +17,7 @@ function usersController(User) {
   function getAll(req, res) {
     User.find()
       .then(users => {
-        let usersInfo = [];
-
-        users.forEach(function(userItem) {
-          console.log();
-          const info = {
-            _id: userItem._id,
-            username: userItem.accountDetails.username,
-            email: userItem.accountDetails.email,
-            dateModified: userItem.dateModified,
-            dateCreated: userItem.dateCreated,
-            status: userItem.status,
-            isAdmin: userItem.isAdmin,
-            ...userItem.userProfile
-          };
-          usersInfo.push(info);
-        });
-        res.send(usersInfo);
+        res.send(users);
       })
       .catch(err => {
         res.status(500).send({
@@ -51,18 +35,8 @@ function usersController(User) {
             message: "User not found."
           });
         }
-        const userInfo = {
-          _id: user._id,
-          username: user.accountDetails.username,
-          email: user.accountDetails.email,
-          dateModified: user.dateModified,
-          dateCreated: user.dateCreated,
-          status: user.status,
-          isAdmin: user.isAdmin,
-          ...user.userProfile
-        };
 
-        res.send(userInfo);
+        res.send(user);
       })
       .catch(err => {
         if (err.kind === "ObjectId") {
@@ -75,8 +49,43 @@ function usersController(User) {
         });
       });
   }
-
   function update(req, res) {
+    //Validate request here
+    // if (!req.body.content) {
+    //   return res.status(400).send({
+    //     message: "User content cannot be empty"
+    //   });
+    // }
+
+    User.findByIdAndUpdate(
+      { _id: req.params.userId },
+      { $set: req.body },
+      { new: true }
+    )
+      .then(user => {
+        if (!user) {
+          res.status(404).send({
+            message: "User not found with id " + req.params.userId
+          });
+        }
+
+        res.send(user);
+      })
+      .catch(err => {
+        if (err.kind === "ObjectId") {
+          return res.status(400).send({
+            message: "User not found with id " + req.params.userId
+          });
+        }
+
+        return res.status(500).send({
+          message:
+            err.message || "Could not update user with id " + req.params.userId
+        });
+      });
+  }
+
+  function replace(req, res) {
     //Validate request here
     // if (!req.body.content) {
     //   return res.status(400).send({
@@ -91,18 +100,8 @@ function usersController(User) {
             message: "User not found with id " + req.params.userId
           });
         }
-        const userInfo = {
-          _id: user._id,
-          username: user.accountDetails.username,
-          email: user.accountDetails.email,
-          dateModified: user.dateModified,
-          dateCreated: user.dateCreated,
-          status: user.status,
-          isAdmin: user.isAdmin,
-          ...user.userProfile
-        };
 
-        res.send(userInfo);
+        res.send(user);
       })
       .catch(err => {
         if (err.kind === "ObjectId") {
@@ -141,7 +140,7 @@ function usersController(User) {
       });
   }
 
-  return { insert, getAll, get, update, remove };
+  return { insert, getAll, get, replace, update, remove };
 }
 
 module.exports = usersController;
