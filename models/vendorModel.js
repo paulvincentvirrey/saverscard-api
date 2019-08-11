@@ -26,7 +26,11 @@ const vendorModel = new Schema({
   paymentMethod: String,
   ccType: String,
   subscription: Number,
-  promoCode: String
+  promoCode: String,
+  applicationStatus: String,
+  remarks: String,
+  dateModified: String,
+  dateCreated: String
 });
 
 module.exports = mongoose.model("Vendor", vendorModel);
