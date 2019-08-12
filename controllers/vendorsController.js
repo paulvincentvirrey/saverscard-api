@@ -56,7 +56,7 @@ function vendorsController(Vendor) {
     //Validate request here
     // if (!req.body.content) {
     //   return res.status(400).send({
-    //     message: "User content cannot be empty"
+    //     message: "Vendor content cannot be empty"
     //   });
     // }
 
@@ -89,11 +89,43 @@ function vendorsController(Vendor) {
       });
   }
 
+  function updatePassword(req, res) {
+    const { vendorId } = req.params;
+    const { currentPassword, newPassword } = req.body;
+    Vendor.updateOne(
+      { _id: vendorId, password: currentPassword },
+      { password: newPassword }
+    )
+      .then(x => {
+        if (x.n === 0) {
+          res.status(404).send({
+            message:
+              "Incorrect password for Vendor with id " + req.params.vendorId
+          });
+        }
+
+        res.send({ message: "Password updated successfully!" });
+      })
+      .catch(err => {
+        if (err.kind === "ObjectId") {
+          return res.status(400).send({
+            message: "Vendor not found with id " + req.params.vendorId
+          });
+        }
+
+        return res.status(500).send({
+          message:
+            err.message ||
+            "Could not update user with id " + req.params.vendorId
+        });
+      });
+  }
+
   function replace(req, res) {
     //Validate request here
     // if (!req.body.content) {
     //   return res.status(400).send({
-    //     message: "User content cannot be empty"
+    //     message: "Vendor content cannot be empty"
     //   });
     // }
 
@@ -145,7 +177,7 @@ function vendorsController(Vendor) {
       });
   }
 
-  return { insert, getAll, get, replace, update, remove };
+  return { insert, getAll, get, replace, update, updatePassword, remove };
 }
 
 module.exports = vendorsController;

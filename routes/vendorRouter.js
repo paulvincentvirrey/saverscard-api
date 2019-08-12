@@ -18,6 +18,10 @@ function routes(Vendor) {
     .patch(controller.update)
     .delete(controller.remove);
 
+  vendorRouter
+    .route("/updatepassword/:vendorId")
+    .patch(controller.updatePassword);
+
   return vendorRouter;
 }
 
