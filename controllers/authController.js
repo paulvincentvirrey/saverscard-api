@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 function authController(User, Vendor) {
   function login(req, res) {
     const { email, password, loginAs } = req.body;
-    console.log(loginAs);
     if (loginAs === "user") {
       User.findOne({
         email: email,
@@ -21,9 +20,11 @@ function authController(User, Vendor) {
           const options = { expiresIn: "24h", issuer: "admin" };
           const secret = "aoisjda98u12i31hajskdk";
           const token = jwt.sign(payload, secret, options);
+          user.loginType = "user";
 
           const userInfo = {
             account: user,
+            loginType: "user",
             access_token: token
           };
 
@@ -58,6 +59,7 @@ function authController(User, Vendor) {
 
           const vendorInfo = {
             account: vendor,
+            loginType: "vendor",
             access_token: token
           };
 
