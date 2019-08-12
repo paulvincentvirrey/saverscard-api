@@ -23,7 +23,7 @@ function authController(User, Vendor) {
           const token = jwt.sign(payload, secret, options);
 
           const userInfo = {
-            user,
+            account: user,
             access_token: token
           };
 
@@ -57,7 +57,7 @@ function authController(User, Vendor) {
           const token = jwt.sign(payload, secret, options);
 
           const vendorInfo = {
-            vendor,
+            account: vendor,
             access_token: token
           };
 
