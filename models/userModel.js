@@ -22,6 +22,7 @@ const userModel = new Schema({
   accountStatus: String,
   dateCreated: Date,
   dateModified: Date,
+  remarks: String,
   isAdmin: Boolean
 });
 
