@@ -8,17 +8,19 @@ function routes(User) {
 
   userRouter
     .route("/")
-    .post(controller.insert)
+    .post(validateToken, controller.insert)
     .get(validateToken, controller.getAll);
 
   userRouter
     .route("/:userId")
-    .get(controller.get)
-    .put(controller.replace)
-    .patch(controller.update)
-    .delete(controller.remove);
+    .get(validateToken, controller.get)
+    .put(validateToken, controller.replace)
+    .patch(validateToken, controller.update)
+    .delete(validateToken, controller.remove);
 
-  userRouter.route("/updatepassword/:userId").patch(controller.updatePassword);
+  userRouter
+    .route("/updatepassword/:userId")
+    .patch(validateToken, controller.updatePassword);
 
   return userRouter;
 }

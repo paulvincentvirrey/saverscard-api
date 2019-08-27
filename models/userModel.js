@@ -23,7 +23,11 @@ const userModel = new Schema({
   dateCreated: Date,
   dateModified: Date,
   remarks: String,
-  isAdmin: Boolean
+  isAdmin: Boolean,
+  isDeleted: {
+    type: Boolean,
+    default: false
+  }
 });
 
 module.exports = mongoose.model("User", userModel);

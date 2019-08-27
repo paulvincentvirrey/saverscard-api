@@ -30,7 +30,11 @@ const vendorModel = new Schema({
   applicationStatus: String,
   remarks: String,
   dateModified: String,
-  dateCreated: String
+  dateCreated: String,
+  isDeleted: {
+    type: Boolean,
+    default: false
+  }
 });
 
 module.exports = mongoose.model("Vendor", vendorModel);

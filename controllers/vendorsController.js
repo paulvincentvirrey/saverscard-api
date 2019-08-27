@@ -16,7 +16,7 @@ function vendorsController(Vendor) {
   }
 
   function getAll(req, res) {
-    Vendor.find()
+    Vendor.find({ isDeleted: false })
       .then(vendors => {
         res.send(vendors);
       })
@@ -116,7 +116,7 @@ function vendorsController(Vendor) {
         return res.status(500).send({
           message:
             err.message ||
-            "Could not update user with id " + req.params.vendorId
+            "Could not update vendor with id " + req.params.vendorId
         });
       });
   }
@@ -155,24 +155,28 @@ function vendorsController(Vendor) {
   }
 
   function remove(req, res) {
-    Vendor.findByIdAndRemove(req.params.vendorId)
-      .then(vendor => {
-        if (!vendor) {
+    const { vendorId } = req.params;
+    Vendor.updateOne({ _id: vendorId }, { isDeleted: true })
+      .then(x => {
+        if (x.n === 0) {
+          res.status(404).send({
+            message: "Vendor not found with id " + req.params.vendorId
+          });
+        }
+
+        res.send({ message: "Vendor deleted successfully!" });
+      })
+      .catch(err => {
+        if (err.kind === "ObjectId") {
           return res.status(400).send({
             message: "Vendor not found with id " + req.params.vendorId
           });
         }
-        res.send({ message: "Vendor deleted successfully!" });
-      })
-      .catch(err => {
-        if (err.kind === "ObjectId" || err.name === "NotFound") {
-          return res.status(400).send({
-            message: "Vendor not vendor with id " + req.params.vendorId
-          });
-        }
 
         return res.status(500).send({
-          message: "Could not delete vendor with id " + req.params.vendorId
+          message:
+            err.message ||
+            "Could not delete vendor with id " + req.params.vendorId
         });
       });
   }

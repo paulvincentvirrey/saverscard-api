@@ -8,19 +8,19 @@ function routes(Vendor) {
 
   vendorRouter
     .route("/")
-    .post(controller.insert)
+    .post(validateToken, controller.insert)
     .get(validateToken, controller.getAll);
 
   vendorRouter
     .route("/:vendorId")
-    .get(controller.get)
-    .put(controller.update)
-    .patch(controller.update)
-    .delete(controller.remove);
+    .get(validateToken, controller.get)
+    .put(validateToken, controller.update)
+    .patch(validateToken, controller.update)
+    .delete(validateToken, controller.remove);
 
   vendorRouter
     .route("/updatepassword/:vendorId")
-    .patch(controller.updatePassword);
+    .patch(validateToken, controller.updatePassword);
 
   return vendorRouter;
 }
