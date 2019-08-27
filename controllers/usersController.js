@@ -15,7 +15,7 @@ function usersController(User) {
   }
 
   function getAll(req, res) {
-    User.find()
+    User.find({ isDeleted: false })
       .then(users => {
         res.send(users);
       })
