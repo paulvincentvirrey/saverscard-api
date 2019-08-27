@@ -16,7 +16,7 @@ function vendorsController(Vendor) {
   }
 
   function getAll(req, res) {
-    Vendor.find({ isDeleted: false })
+    Vendor.find()
       .then(vendors => {
         res.send(vendors);
       })
