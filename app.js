@@ -1,7 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-
+const multer = require("multer");
+const cors = require("cors");
 const app = express();
 
 if (process.env.ENV === "Test") {
@@ -26,7 +27,9 @@ const vendorRouter = require("./routes/vendorRouter")(Vendor);
 const userRouter = require("./routes/userRouter")(User);
 const authRouter = require("./routes/authRouter")(User, Vendor);
 const paymentRouter = require("./routes/paymentRouter")();
+const fileRouter = require("./routes/fileRouter")();
 
+app.use(cors());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", "true");
@@ -49,6 +52,7 @@ app.use(bodyParser.json());
 app.use("/api/vendors", vendorRouter);
 app.use("/api/users", userRouter);
 app.use("/api/payment", paymentRouter);
+app.use("/api/upload", fileRouter);
 app.use("/auth", authRouter);
 
 app.get("/", (req, res) => {

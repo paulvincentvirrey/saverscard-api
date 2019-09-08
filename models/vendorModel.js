@@ -27,6 +27,7 @@ const vendorModel = new Schema({
   ccType: String,
   subscription: Number,
   promoCode: String,
+  invoice: String,
   applicationStatus: String,
   remarks: String,
   dateModified: String,

@@ -17,6 +17,7 @@ const userModel = new Schema({
   zip: Number,
   paymentMethod: String,
   ccType: String,
+  invoice: String,
   subscription: Number,
   promoCode: String,
   accountStatus: String,
