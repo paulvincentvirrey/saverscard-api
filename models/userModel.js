@@ -20,8 +20,8 @@ const userModel = new Schema({
   subscription: Number,
   promoCode: String,
   accountStatus: String,
-  dateCreated: Date,
-  dateModified: Date,
+  dateCreated: String,
+  dateModified: String,
   remarks: String,
   isAdmin: Boolean,
   isDeleted: {
