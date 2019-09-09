@@ -8,7 +8,7 @@ function routes(User) {
 
   userRouter
     .route("/")
-    .post(validateToken, controller.insert)
+    .post(controller.insert)
     .get(validateToken, controller.getAll);
 
   userRouter

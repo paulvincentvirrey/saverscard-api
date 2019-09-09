@@ -8,7 +8,7 @@ function routes(Vendor) {
 
   vendorRouter
     .route("/")
-    .post(validateToken, controller.insert)
+    .post(controller.insert)
     .get(validateToken, controller.getAll);
 
   vendorRouter
