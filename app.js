@@ -52,7 +52,7 @@ app.use(bodyParser.json());
 app.use("/api/vendors", vendorRouter);
 app.use("/api/users", userRouter);
 app.use("/api/payment", paymentRouter);
-app.use("/api/upload", fileRouter);
+app.use("/api/file", fileRouter);
 app.use("/auth", authRouter);
 
 app.get("/", (req, res) => {

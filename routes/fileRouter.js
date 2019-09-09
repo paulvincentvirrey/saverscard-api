@@ -5,7 +5,8 @@ function routes() {
   const fileRouter = Router();
   const controller = fileController();
 
-  fileRouter.route("/").post(controller.upload);
+  fileRouter.route("/upload").post(controller.upload);
+  fileRouter.route("/download").get(controller.download);
 
   return fileRouter;
 }
